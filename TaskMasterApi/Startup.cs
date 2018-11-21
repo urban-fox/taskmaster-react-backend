@@ -30,7 +30,7 @@ namespace TaskMasterApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<TaskMasterApiContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("TaskMasterApiContext")));
+                    options.UseSqlite(Configuration.GetConnectionString("TaskMasterApiContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
