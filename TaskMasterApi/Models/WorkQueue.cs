@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace TaskMasterApi.Models
 {
-    public class WorkBlock
+    public class WorkQueue
     {
-        public int Id { get; set; }
-        public TimeSpan Time { get; set; }
+
     }
 }

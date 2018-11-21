@@ -11,7 +11,7 @@ namespace TaskMasterApi.Models
         public string Title { get; set; }
         public string CourseCode { get; set; }
 
-        private List<Topic> Topics;
+        public List<Topic> Topics;
 
         public List<Topic> GetTopics()
         {

@@ -16,6 +16,10 @@ namespace TaskMasterApi.Models
 
         public DbSet<TaskMasterApi.Models.Course> Course { get; set; }
 
-        public DbSet<TaskMasterApi.Models.Workblock> Workblock { get; set; }
+        public DbSet<TaskMasterApi.Models.WorkBlock> Workblock { get; set; }
+
+        public DbSet<TaskMasterApi.Models.Dodge> Dodge { get; set; }
+
+        public DbSet<TaskMasterApi.Models.WorkSession> WorkSession { get; set; }
     }
 }
