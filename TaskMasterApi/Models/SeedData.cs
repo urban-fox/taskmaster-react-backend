@@ -29,7 +29,23 @@ namespace TaskMasterApi.Models
                 };
 
                 seedTopics.Add(seedTopic);
-                
+
+                // add 2 more topics
+                seedTopics.Add(
+                    new Topic
+                    {
+                        Title = "Advanced sorting algorithms",
+                        Confidence = 2
+                    }
+                );
+                seedTopics.Add(
+                    new Topic
+                    {
+                        Title = "Efficient searching",
+                        Confidence = 1
+                    }
+                );
+
                 context.Course.AddRange(
                     new Course
                     {
