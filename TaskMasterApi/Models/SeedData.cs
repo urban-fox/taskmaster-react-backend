@@ -20,7 +20,6 @@ namespace TaskMasterApi.Models
                     return;
                 }
 
-                
                 // Create topics
                 List<Topic> seedTopics = new List<Topic>();
 
@@ -28,7 +27,7 @@ namespace TaskMasterApi.Models
                     new Topic
                     {
                         Title = "Basic sorting algorithms",
-                        Confidence = 0,
+                        Confidence = 0
                     }
                 );
 
@@ -47,18 +46,24 @@ namespace TaskMasterApi.Models
                         Confidence = 1,
                     }
                 );
-                context.Topic.AddRange(seedTopics);
 
                 // Create a course
-                context.Course.AddRange(
-                    new Course
-                    {
-                        Title = "Algorithms and Data Structures",
-                        CourseCode = "COMPSCI 220",
-                        Topics = seedTopics
-                    }
-                );
+                Course seedCourse = new Course
+                {
+                    Title = "Algorithms and Data Structures",
+                    CourseCode = "COMPSCI 220",
+                    Topics = seedTopics
+                };
 
+
+                foreach (Topic topic in seedTopics)
+                {
+                    topic.Course = seedCourse;
+                }
+
+                context.Course.Add(seedCourse);
+                context.Topic.AddRange(seedTopics);
+                
                 // Seed a WorkBlock
                 context.Workblock.AddRange(
                     new WorkBlock

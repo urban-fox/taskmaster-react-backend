@@ -9,7 +9,7 @@ using TaskMasterApi.Models;
 namespace TaskMasterApi.Migrations
 {
     [DbContext(typeof(TaskMasterApiContext))]
-    [Migration("20181123100017_InitialCreate")]
+    [Migration("20181123101003_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
