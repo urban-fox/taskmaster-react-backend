@@ -7,7 +7,7 @@ namespace TaskMasterApi.Models
 {
     public class WorkSession
     {
-        public int Id { get; set; }
+        public int WorkSessionId { get; set; }
         public Topic Topic { get; set; }
         public DateTime ScheduleAfter { get; set; }
         public int Priority { get; set; }

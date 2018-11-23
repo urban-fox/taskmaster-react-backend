@@ -7,7 +7,7 @@ namespace TaskMasterApi.Models
 {
     public class WorkBlock
     {
-        public int Id { get; set; }
+        public int WorkBlockId { get; set; }
         public TimeSpan Time { get; set; }
     }
 }

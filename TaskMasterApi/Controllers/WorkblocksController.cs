@@ -11,56 +11,56 @@ namespace TaskMasterApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkblocksController : ControllerBase
+    public class WorkBlocksController : ControllerBase
     {
         private readonly TaskMasterApiContext _context;
 
-        public WorkblocksController(TaskMasterApiContext context)
+        public WorkBlocksController(TaskMasterApiContext context)
         {
             _context = context;
         }
 
-        // GET: api/Workblocks
+        // GET: api/WorkBlocks
         [HttpGet]
         public IEnumerable<WorkBlock> GetWorkblock()
         {
             return _context.Workblock;
         }
 
-        // GET: api/Workblocks/5
+        // GET: api/WorkBlocks/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWorkblock([FromRoute] int id)
+        public async Task<IActionResult> GetWorkBlock([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var workblock = await _context.Workblock.FindAsync(id);
+            var workBlock = await _context.Workblock.FindAsync(id);
 
-            if (workblock == null)
+            if (workBlock == null)
             {
                 return NotFound();
             }
 
-            return Ok(workblock);
+            return Ok(workBlock);
         }
 
-        // PUT: api/Workblocks/5
+        // PUT: api/WorkBlocks/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorkblock([FromRoute] int id, [FromBody] WorkBlock workblock)
+        public async Task<IActionResult> PutWorkBlock([FromRoute] int id, [FromBody] WorkBlock workBlock)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != workblock.Id)
+            if (id != workBlock.WorkBlockId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(workblock).State = EntityState.Modified;
+            _context.Entry(workBlock).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace TaskMasterApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WorkblockExists(id))
+                if (!WorkBlockExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace TaskMasterApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Workblocks
+        // POST: api/WorkBlocks
         [HttpPost]
-        public async Task<IActionResult> PostWorkblock([FromBody] WorkBlock workblock)
+        public async Task<IActionResult> PostWorkBlock([FromBody] WorkBlock workBlock)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Workblock.Add(workblock);
+            _context.Workblock.Add(workBlock);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWorkblock", new { id = workblock.Id }, workblock);
+            return CreatedAtAction("GetWorkBlock", new { id = workBlock.WorkBlockId }, workBlock);
         }
 
-        // DELETE: api/Workblocks/5
+        // DELETE: api/WorkBlocks/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWorkblock([FromRoute] int id)
+        public async Task<IActionResult> DeleteWorkBlock([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var workblock = await _context.Workblock.FindAsync(id);
-            if (workblock == null)
+            var workBlock = await _context.Workblock.FindAsync(id);
+            if (workBlock == null)
             {
                 return NotFound();
             }
 
-            _context.Workblock.Remove(workblock);
+            _context.Workblock.Remove(workBlock);
             await _context.SaveChangesAsync();
 
-            return Ok(workblock);
+            return Ok(workBlock);
         }
 
-        private bool WorkblockExists(int id)
+        private bool WorkBlockExists(int id)
         {
-            return _context.Workblock.Any(e => e.Id == id);
+            return _context.Workblock.Any(e => e.WorkBlockId == id);
         }
     }
 }

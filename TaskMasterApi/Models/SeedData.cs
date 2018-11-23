@@ -20,15 +20,16 @@ namespace TaskMasterApi.Models
                     return;
                 }
 
-                // Seed a Course with one topic
+                // Create a Course with one topic
                 List<Topic> seedTopics = new List<Topic>();
-                Topic seedTopic = new Topic
-                {
-                    Title = "Basic sorting algorithms",
-                    Confidence = 0
-                };
 
-                seedTopics.Add(seedTopic);
+                seedTopics.Add(
+                    new Topic
+                    {
+                        Title = "Basic sorting algorithms",
+                        Confidence = 0
+                    }
+                );
 
                 // add 2 more topics
                 seedTopics.Add(
@@ -51,7 +52,7 @@ namespace TaskMasterApi.Models
                     {
                         Title = "Algorithms and Data Structures",
                         CourseCode = "COMPSCI 220",
-                        Topics = new List<Topic>(seedTopics)
+                        Topics = seedTopics
                     }
                 );
 
@@ -63,13 +64,13 @@ namespace TaskMasterApi.Models
                     }
                 );
                 
-                // See a Dodge
+                // Seed a Dodge
                 context.Dodge.AddRange(
                     new Dodge
                     {
                         Date = new DateTime(2018, 11, 17),
                         Reason = "Felt lazy that day",
-                        Topic = seedTopic
+                        Topic = seedTopics[0]
                     }
                 );
 
@@ -77,7 +78,7 @@ namespace TaskMasterApi.Models
                 context.WorkSession.AddRange(
                     new WorkSession
                     {
-                        Topic = seedTopic,
+                        Topic = seedTopics[0],
                         ScheduleAfter = new DateTime(2018, 11, 18),
                         Priority = 0
                     }

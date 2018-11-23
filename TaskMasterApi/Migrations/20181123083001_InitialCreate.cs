@@ -11,48 +11,49 @@ namespace TaskMasterApi.Migrations
                 name: "Course",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    CourseId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
                     CourseCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Course", x => x.Id);
+                    table.PrimaryKey("PK_Course", x => x.CourseId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Topic",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    TopicId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
-                    Confidence = table.Column<int>(nullable: false)
+                    Confidence = table.Column<int>(nullable: false),
+                    CourseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.PrimaryKey("PK_Topic", x => x.TopicId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Workblock",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    WorkBlockId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Time = table.Column<TimeSpan>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Workblock", x => x.Id);
+                    table.PrimaryKey("PK_Workblock", x => x.WorkBlockId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Dodge",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    DodgeId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Date = table.Column<DateTime>(nullable: false),
                     Reason = table.Column<string>(nullable: true),
@@ -60,12 +61,12 @@ namespace TaskMasterApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Dodge", x => x.Id);
+                    table.PrimaryKey("PK_Dodge", x => x.DodgeId);
                     table.ForeignKey(
                         name: "FK_Dodge_Topic_TopicId",
                         column: x => x.TopicId,
                         principalTable: "Topic",
-                        principalColumn: "Id",
+                        principalColumn: "TopicId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -73,7 +74,7 @@ namespace TaskMasterApi.Migrations
                 name: "WorkSession",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    WorkSessionId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     TopicId = table.Column<int>(nullable: true),
                     ScheduleAfter = table.Column<DateTime>(nullable: false),
@@ -81,12 +82,12 @@ namespace TaskMasterApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkSession", x => x.Id);
+                    table.PrimaryKey("PK_WorkSession", x => x.WorkSessionId);
                     table.ForeignKey(
                         name: "FK_WorkSession_Topic_TopicId",
                         column: x => x.TopicId,
                         principalTable: "Topic",
-                        principalColumn: "Id",
+                        principalColumn: "TopicId",
                         onDelete: ReferentialAction.Restrict);
                 });
 

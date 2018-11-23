@@ -9,7 +9,7 @@ using TaskMasterApi.Models;
 namespace TaskMasterApi.Migrations
 {
     [DbContext(typeof(TaskMasterApiContext))]
-    [Migration("20181121135905_InitialCreate")]
+    [Migration("20181123083001_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,21 +20,21 @@ namespace TaskMasterApi.Migrations
 
             modelBuilder.Entity("TaskMasterApi.Models.Course", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CourseId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CourseCode");
 
                     b.Property<string>("Title");
 
-                    b.HasKey("Id");
+                    b.HasKey("CourseId");
 
                     b.ToTable("Course");
                 });
 
             modelBuilder.Entity("TaskMasterApi.Models.Dodge", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DodgeId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Date");
@@ -43,7 +43,7 @@ namespace TaskMasterApi.Migrations
 
                     b.Property<int?>("TopicId");
 
-                    b.HasKey("Id");
+                    b.HasKey("DodgeId");
 
                     b.HasIndex("TopicId");
 
@@ -52,33 +52,35 @@ namespace TaskMasterApi.Migrations
 
             modelBuilder.Entity("TaskMasterApi.Models.Topic", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TopicId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Confidence");
 
+                    b.Property<int>("CourseId");
+
                     b.Property<string>("Title");
 
-                    b.HasKey("Id");
+                    b.HasKey("TopicId");
 
                     b.ToTable("Topic");
                 });
 
             modelBuilder.Entity("TaskMasterApi.Models.WorkBlock", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("WorkBlockId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<TimeSpan>("Time");
 
-                    b.HasKey("Id");
+                    b.HasKey("WorkBlockId");
 
                     b.ToTable("Workblock");
                 });
 
             modelBuilder.Entity("TaskMasterApi.Models.WorkSession", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("WorkSessionId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Priority");
@@ -87,7 +89,7 @@ namespace TaskMasterApi.Migrations
 
                     b.Property<int?>("TopicId");
 
-                    b.HasKey("Id");
+                    b.HasKey("WorkSessionId");
 
                     b.HasIndex("TopicId");
 

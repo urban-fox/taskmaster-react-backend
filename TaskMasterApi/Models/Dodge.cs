@@ -7,7 +7,7 @@ namespace TaskMasterApi.Models
 {
     public class Dodge
     {
-        public int Id { get; set; }
+        public int DodgeId { get; set; }
         public DateTime Date { get; set; }
         public string Reason { get; set; }
         public Topic Topic { get; set; }

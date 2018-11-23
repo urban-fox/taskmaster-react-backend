@@ -55,7 +55,7 @@ namespace TaskMasterApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != course.Id)
+            if (id != course.CourseId)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace TaskMasterApi.Controllers
             _context.Course.Add(course);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCourse", new { id = course.Id }, course);
+            return CreatedAtAction("GetCourse", new { id = course.CourseId }, course);
         }
 
         // DELETE: api/Courses/5
@@ -119,7 +119,7 @@ namespace TaskMasterApi.Controllers
 
         private bool CourseExists(int id)
         {
-            return _context.Course.Any(e => e.Id == id);
+            return _context.Course.Any(e => e.CourseId == id);
         }
     }
 }

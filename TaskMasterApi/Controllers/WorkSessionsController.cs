@@ -55,7 +55,7 @@ namespace TaskMasterApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != workSession.Id)
+            if (id != workSession.WorkSessionId)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace TaskMasterApi.Controllers
             _context.WorkSession.Add(workSession);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWorkSession", new { id = workSession.Id }, workSession);
+            return CreatedAtAction("GetWorkSession", new { id = workSession.WorkSessionId }, workSession);
         }
 
         // DELETE: api/WorkSessions/5
@@ -119,7 +119,7 @@ namespace TaskMasterApi.Controllers
 
         private bool WorkSessionExists(int id)
         {
-            return _context.WorkSession.Any(e => e.Id == id);
+            return _context.WorkSession.Any(e => e.WorkSessionId == id);
         }
     }
 }
