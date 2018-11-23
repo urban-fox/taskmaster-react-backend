@@ -121,5 +121,10 @@ namespace TaskMasterApi.Controllers
         {
             return _context.WorkSession.Any(e => e.WorkSessionId == id);
         }
+
+        public IEnumerable<WorkSession> GetNext(DateTime today)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

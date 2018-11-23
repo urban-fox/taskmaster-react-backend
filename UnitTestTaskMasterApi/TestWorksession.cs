@@ -88,6 +88,7 @@ namespace UnitTestTaskMasterApi
                     Priority = 0
                 });
 
+                context.WorkSession.AddRange(workSessions);
                 context.SaveChanges();
             }
         }
@@ -152,6 +153,7 @@ namespace UnitTestTaskMasterApi
                     Priority = 2
                 });
 
+                context.WorkSession.AddRange(workSessions);
                 context.SaveChanges();
             }
         }
@@ -176,7 +178,7 @@ namespace UnitTestTaskMasterApi
             using (var context = new TaskMasterApiContext(options))
             {
                 // Arrange
-                var controller = new WorkBlocksController(context);
+                var controller = new WorkSessionsController(context);
                 var today = new DateTime(2019, 1, 1);
 
                 // Act
@@ -203,7 +205,7 @@ namespace UnitTestTaskMasterApi
             using (var context = new TaskMasterApiContext(options))
             {
                 // Arrange
-                var controller = new WorkBlocksController(context);
+                var controller = new WorkSessionsController(context);
                 var today = new DateTime(2018, 12, 1);
 
                 // Act
@@ -231,7 +233,7 @@ namespace UnitTestTaskMasterApi
             using (var context = new TaskMasterApiContext(options))
             {
                 // Arrange
-                var controller = new WorkBlocksController(context);
+                var controller = new WorkSessionsController(context);
                 var today = new DateTime(2019, 1, 1);
 
                 // remove existing priority 0 setup
@@ -290,14 +292,14 @@ namespace UnitTestTaskMasterApi
             using (var context = new TaskMasterApiContext(options))
             {
                 // Arrange
-                var controller = new WorkBlocksController(context);
+                var controller = new WorkSessionsController(context);
 
                 // Act
-                await controller.DeleteWorkBlock(1);
+                await controller.DeleteWorkSession(1);
 
                 // Assert
-                Assert.AreEqual(1, context.Workblock.Count());
-                Assert.AreEqual(15, context.Workblock.First().Time.Hours);
+                Assert.AreEqual(5, context.WorkSession.Count());
+                Assert.IsFalse(context.WorkSession.Any(w => w.WorkSessionId == 1));
             }
         }
     }

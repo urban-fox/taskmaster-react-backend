@@ -122,14 +122,5 @@ namespace TaskMasterApi.Controllers
             return _context.Workblock.Any(e => e.WorkBlockId == id);
         }
 
-        public object GetNext()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<WorkSession> GetNext(DateTime today)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
