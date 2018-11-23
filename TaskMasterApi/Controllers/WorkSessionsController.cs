@@ -25,7 +25,7 @@ namespace TaskMasterApi.Controllers
         public IEnumerable<WorkSession> GetNext(DateTime today)
         {
             // return _context.WorkSession;
-            // should return 4 by priorty, date, then id
+            // should return by priorty, date, then id
 
             IEnumerable<WorkSession> results = from ws in _context.WorkSession
                                                where ws.ScheduleAfter <= today

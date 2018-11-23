@@ -185,7 +185,7 @@ namespace UnitTestTaskMasterApi
                 var sessions = (IEnumerable<WorkSession>)controller.GetNext(today);
 
                 // Assert - should have all worksessions ordered by scheduleAfter
-                Assert.AreEqual(sessions.Count(), 3);
+                Assert.AreEqual(sessions.Count(), 6);
 
                 var resultList = sessions.ToList();
                 for (int i = 0; i < 3; i++)
@@ -212,12 +212,12 @@ namespace UnitTestTaskMasterApi
                 var sessions = (IEnumerable<WorkSession>)controller.GetNext(today);
 
                 // Assert - should have all worksessions ordered by scheduleAfter
-                Assert.AreEqual(sessions.Count(), 3);
+                Assert.AreEqual(sessions.Count(), 4);
 
                 var resultList = sessions.ToList();
                 for (int i = 0; i < 3; i++)
                 {
-                    Assert.AreEqual(resultList[i].WorkSessionId, i + 4);
+                    Assert.AreEqual(resultList[i].WorkSessionId, i + 1);
                 }
 
             }
@@ -225,7 +225,7 @@ namespace UnitTestTaskMasterApi
 
 
         // GET WorkSession/{date}
-        // Gets the next 4 work sessions by date and priority
+        // Gets the next work sessions by date and priority
         // This test sets date to after all scheduleAfter, but sets priorities
         [TestMethod]
         public void TestGetByPriority()
@@ -248,15 +248,17 @@ namespace UnitTestTaskMasterApi
 
                 // Assert
                 // Should be 4
-                Assert.AreEqual(sessions.Count(), 4);
+                Assert.AreEqual(sessions.Count(), 6);
 
                 // Should have all worksessions ordered by priority and scheduleAfter
-                // order should be 3, 4, 1, 5
+                // order should be 3, 4, 1, 5, 2, 6
                 var resultList = sessions.ToList();
                 Assert.AreEqual(resultList[0].WorkSessionId, 3);
                 Assert.AreEqual(resultList[1].WorkSessionId, 4);
                 Assert.AreEqual(resultList[2].WorkSessionId, 1);
                 Assert.AreEqual(resultList[3].WorkSessionId, 5);
+                Assert.AreEqual(resultList[4].WorkSessionId, 2);
+                Assert.AreEqual(resultList[5].WorkSessionId, 6);
 
             }
         }
