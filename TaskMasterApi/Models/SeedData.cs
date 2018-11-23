@@ -15,12 +15,14 @@ namespace TaskMasterApi.Models
                 serviceProvider.GetRequiredService<DbContextOptions<TaskMasterApiContext>>()))
             {
                 
-                if (context.Course.Count() > 0)
+                if (context.Course.Any())
                 {
                     return;
                 }
 
-                // Create a Course with one topic
+                
+
+                // Create topics
                 List<Topic> seedTopics = new List<Topic>();
 
                 seedTopics.Add(
@@ -46,7 +48,9 @@ namespace TaskMasterApi.Models
                         Confidence = 1
                     }
                 );
+                context.Topic.AddRange(seedTopics);
 
+                // Create a course
                 context.Course.AddRange(
                     new Course
                     {

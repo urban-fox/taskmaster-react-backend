@@ -23,5 +23,6 @@ namespace TaskMasterApi.Models
         public DbSet<TaskMasterApi.Models.WorkSession> WorkSession { get; set; }
 
         public DbSet<TaskMasterApi.Models.Topic> Topic { get; set; }
+
     }
 }

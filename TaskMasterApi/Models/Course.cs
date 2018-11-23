@@ -10,22 +10,6 @@ namespace TaskMasterApi.Models
         public int CourseId { get; set; }
         public string Title { get; set; }
         public string CourseCode { get; set; }
-
         public List<Topic> Topics;
-
-        public List<Topic> GetTopics()
-        {
-            return Topics;
-        }
-        public void AddTopic(Topic newTopic)
-        {
-            Topics.Append(newTopic);
-        }
-        public void DeleteTopic(int index)
-        {
-            Topics.RemoveAt(index);
-        }
-
-
     }
 }

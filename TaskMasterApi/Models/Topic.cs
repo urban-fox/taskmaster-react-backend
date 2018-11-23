@@ -9,10 +9,12 @@ namespace TaskMasterApi.Models
     public class Topic
     {
         public int TopicId { get; set; }
+
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
+
         public string Title { get; set; }
         public int Confidence { get; set; }
 
-        [ForeignKey("CourseForeignKey")]
-        public int CourseId { get; set; }
     }
 }

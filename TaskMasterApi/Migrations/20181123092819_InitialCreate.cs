@@ -22,21 +22,6 @@ namespace TaskMasterApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Topic",
-                columns: table => new
-                {
-                    TopicId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(nullable: true),
-                    Confidence = table.Column<int>(nullable: false),
-                    CourseId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Topic", x => x.TopicId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Workblock",
                 columns: table => new
                 {
@@ -50,14 +35,35 @@ namespace TaskMasterApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Topic",
+                columns: table => new
+                {
+                    TopicId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CourseId = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Confidence = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topic", x => x.TopicId);
+                    table.ForeignKey(
+                        name: "FK_Topic_Course_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Course",
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Dodge",
                 columns: table => new
                 {
                     DodgeId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    TopicId = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    Reason = table.Column<string>(nullable: true),
-                    TopicId = table.Column<int>(nullable: true)
+                    Reason = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,7 +73,7 @@ namespace TaskMasterApi.Migrations
                         column: x => x.TopicId,
                         principalTable: "Topic",
                         principalColumn: "TopicId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,7 +82,7 @@ namespace TaskMasterApi.Migrations
                 {
                     WorkSessionId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TopicId = table.Column<int>(nullable: true),
+                    TopicId = table.Column<int>(nullable: false),
                     ScheduleAfter = table.Column<DateTime>(nullable: false),
                     Priority = table.Column<int>(nullable: false)
                 },
@@ -88,13 +94,18 @@ namespace TaskMasterApi.Migrations
                         column: x => x.TopicId,
                         principalTable: "Topic",
                         principalColumn: "TopicId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dodge_TopicId",
                 table: "Dodge",
                 column: "TopicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topic_CourseId",
+                table: "Topic",
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkSession_TopicId",
@@ -104,9 +115,6 @@ namespace TaskMasterApi.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Course");
-
             migrationBuilder.DropTable(
                 name: "Dodge");
 
@@ -118,6 +126,9 @@ namespace TaskMasterApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Topic");
+
+            migrationBuilder.DropTable(
+                name: "Course");
         }
     }
 }

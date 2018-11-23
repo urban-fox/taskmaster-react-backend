@@ -9,7 +9,7 @@ using TaskMasterApi.Models;
 namespace TaskMasterApi.Migrations
 {
     [DbContext(typeof(TaskMasterApiContext))]
-    [Migration("20181123083001_InitialCreate")]
+    [Migration("20181123092819_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace TaskMasterApi.Migrations
 
                     b.Property<string>("Reason");
 
-                    b.Property<int?>("TopicId");
+                    b.Property<int>("TopicId");
 
                     b.HasKey("DodgeId");
 
@@ -62,6 +62,8 @@ namespace TaskMasterApi.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("TopicId");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Topic");
                 });
@@ -87,7 +89,7 @@ namespace TaskMasterApi.Migrations
 
                     b.Property<DateTime>("ScheduleAfter");
 
-                    b.Property<int?>("TopicId");
+                    b.Property<int>("TopicId");
 
                     b.HasKey("WorkSessionId");
 
@@ -100,14 +102,24 @@ namespace TaskMasterApi.Migrations
                 {
                     b.HasOne("TaskMasterApi.Models.Topic", "Topic")
                         .WithMany()
-                        .HasForeignKey("TopicId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TaskMasterApi.Models.Topic", b =>
+                {
+                    b.HasOne("TaskMasterApi.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TaskMasterApi.Models.WorkSession", b =>
                 {
                     b.HasOne("TaskMasterApi.Models.Topic", "Topic")
                         .WithMany()
-                        .HasForeignKey("TopicId");
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
