@@ -27,60 +27,6 @@ namespace TaskMasterApi.Controllers
             return _context.Dodge;
         }
 
-        // GET: api/Dodges/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDodge([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var dodge = await _context.Dodge.FindAsync(id);
-
-            if (dodge == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(dodge);
-        }
-
-        // PUT: api/Dodges/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDodge([FromRoute] int id, [FromBody] Dodge dodge)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != dodge.DodgeId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(dodge).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DodgeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Dodges
         [HttpPost]
         public async Task<IActionResult> PostDodge([FromBody] Dodge dodge)
