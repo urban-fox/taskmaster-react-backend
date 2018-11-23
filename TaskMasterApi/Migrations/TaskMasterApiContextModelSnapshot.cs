@@ -39,7 +39,7 @@ namespace TaskMasterApi.Migrations
 
                     b.Property<string>("Reason");
 
-                    b.Property<int>("TopicId");
+                    b.Property<int?>("TopicId");
 
                     b.HasKey("DodgeId");
 
@@ -55,7 +55,7 @@ namespace TaskMasterApi.Migrations
 
                     b.Property<int>("Confidence");
 
-                    b.Property<int>("CourseId");
+                    b.Property<int?>("CourseId");
 
                     b.Property<string>("Title");
 
@@ -87,7 +87,7 @@ namespace TaskMasterApi.Migrations
 
                     b.Property<DateTime>("ScheduleAfter");
 
-                    b.Property<int>("TopicId");
+                    b.Property<int?>("TopicId");
 
                     b.HasKey("WorkSessionId");
 
@@ -100,24 +100,21 @@ namespace TaskMasterApi.Migrations
                 {
                     b.HasOne("TaskMasterApi.Models.Topic", "Topic")
                         .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TopicId");
                 });
 
             modelBuilder.Entity("TaskMasterApi.Models.Topic", b =>
                 {
                     b.HasOne("TaskMasterApi.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("TaskMasterApi.Models.WorkSession", b =>
                 {
                     b.HasOne("TaskMasterApi.Models.Topic", "Topic")
                         .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TopicId");
                 });
 #pragma warning restore 612, 618
         }

@@ -21,7 +21,6 @@ namespace TaskMasterApi.Models
                 }
 
                 
-
                 // Create topics
                 List<Topic> seedTopics = new List<Topic>();
 
@@ -29,7 +28,7 @@ namespace TaskMasterApi.Models
                     new Topic
                     {
                         Title = "Basic sorting algorithms",
-                        Confidence = 0
+                        Confidence = 0,
                     }
                 );
 
@@ -38,14 +37,14 @@ namespace TaskMasterApi.Models
                     new Topic
                     {
                         Title = "Advanced sorting algorithms",
-                        Confidence = 2
+                        Confidence = 2,
                     }
                 );
                 seedTopics.Add(
                     new Topic
                     {
                         Title = "Efficient searching",
-                        Confidence = 1
+                        Confidence = 1,
                     }
                 );
                 context.Topic.AddRange(seedTopics);
@@ -67,14 +66,14 @@ namespace TaskMasterApi.Models
                         Time = new TimeSpan(14, 0, 0) // 2pm
                     }
                 );
-                
+
                 // Seed a Dodge
                 context.Dodge.AddRange(
                     new Dodge
                     {
                         Date = new DateTime(2018, 11, 17),
                         Reason = "Felt lazy that day",
-                        Topic = seedTopics[0]
+                        Topic = seedTopics[0],
                     }
                 );
 

@@ -40,7 +40,7 @@ namespace TaskMasterApi.Migrations
                 {
                     TopicId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CourseId = table.Column<int>(nullable: false),
+                    CourseId = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Confidence = table.Column<int>(nullable: false)
                 },
@@ -52,7 +52,7 @@ namespace TaskMasterApi.Migrations
                         column: x => x.CourseId,
                         principalTable: "Course",
                         principalColumn: "CourseId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,7 +61,7 @@ namespace TaskMasterApi.Migrations
                 {
                     DodgeId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TopicId = table.Column<int>(nullable: false),
+                    TopicId = table.Column<int>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     Reason = table.Column<string>(nullable: true)
                 },
@@ -73,7 +73,7 @@ namespace TaskMasterApi.Migrations
                         column: x => x.TopicId,
                         principalTable: "Topic",
                         principalColumn: "TopicId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,7 +82,7 @@ namespace TaskMasterApi.Migrations
                 {
                     WorkSessionId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TopicId = table.Column<int>(nullable: false),
+                    TopicId = table.Column<int>(nullable: true),
                     ScheduleAfter = table.Column<DateTime>(nullable: false),
                     Priority = table.Column<int>(nullable: false)
                 },
@@ -94,7 +94,7 @@ namespace TaskMasterApi.Migrations
                         column: x => x.TopicId,
                         principalTable: "Topic",
                         principalColumn: "TopicId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
