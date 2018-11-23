@@ -21,64 +21,19 @@ namespace TaskMasterApi.Controllers
         }
 
         // GET: api/WorkSessions
-        [HttpGet]
-        public IEnumerable<WorkSession> GetWorkSession()
+        [HttpGet("/next")]
+        public IEnumerable<WorkSession> GetNext(DateTime today)
         {
-            return _context.WorkSession;
-        }
+            // return _context.WorkSession;
+            // should return 4 by priorty, date, then id
 
-        // GET: api/WorkSessions/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetWorkSession([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var workSession = await _context.WorkSession.FindAsync(id);
-
-            if (workSession == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(workSession);
-        }
-
-        // PUT: api/WorkSessions/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorkSession([FromRoute] int id, [FromBody] WorkSession workSession)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != workSession.WorkSessionId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(workSession).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!WorkSessionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            IEnumerable<WorkSession> results = from ws in _context.WorkSession
+                                               where ws.ScheduleAfter <= today
+                                               orderby ws.Priority ascending,
+                                                    ws.ScheduleAfter ascending,
+                                                    ws.WorkSessionId ascending
+                                               select ws;
+            return results;
         }
 
         // POST: api/WorkSessions
@@ -122,9 +77,5 @@ namespace TaskMasterApi.Controllers
             return _context.WorkSession.Any(e => e.WorkSessionId == id);
         }
 
-        public IEnumerable<WorkSession> GetNext(DateTime today)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
