@@ -27,7 +27,7 @@ namespace UnitTestTaskMasterApi
             {
                 Course course1 = new Course
                 {
-                    CourseId = 1,
+                    CourseId = 0,
                     Title = "Testcourse 1",
                     CourseCode = "TEST 101",
                     Topics = null
@@ -68,7 +68,6 @@ namespace UnitTestTaskMasterApi
             }
         }
 
-
         [TestMethod]
         public async Task TestPost()
         {
@@ -77,7 +76,7 @@ namespace UnitTestTaskMasterApi
                 // Arrange
                 Course course2 = new Course
                 {
-                    CourseId = 2,
+                    CourseId = 1,
                     Title = "Testcourse 2",
                     CourseCode = "TEST 202",
                     Topics = null
@@ -94,6 +93,32 @@ namespace UnitTestTaskMasterApi
                              where course.Title == "Testcourse 2"
                              select course.Title);
                 Assert.AreEqual(query.First(), "Testcourse 2");
+            }
+        }
+
+        [TestMethod]
+        public async Task TestPut()
+        {
+            using (var context = new TaskMasterApiContext(options))
+            {
+                // Arrange
+                Course course2 = new Course
+                {
+                    CourseId = 0,
+                    Title = "Testcourse 2",
+                    CourseCode = "TEST 202",
+                    Topics = null
+                };
+                var controller = new CoursesController(context);
+
+                // Act
+                await controller.PutCourse(0, course2);
+
+                // Assert
+                Assert.AreEqual(context.Course.Count(), 1);
+
+                var foundCourse = context.Course.Find(0);
+                Assert.AreEqual(foundCourse.Title, course2.Title);
             }
         }
     }
