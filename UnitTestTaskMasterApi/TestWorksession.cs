@@ -267,47 +267,20 @@ namespace UnitTestTaskMasterApi
             using (var context = new TaskMasterApiContext(options))
             {
                 // Arrange
-                var wb3 = new WorkBlock
+                var ws = new WorkSession
                 {
-                    WorkBlockId = 3,
-                    Time = new System.TimeSpan(18, 0, 0)
+                    WorkSessionId = 7,
+                    Topic = null,
+                    ScheduleAfter = new System.DateTime(2018, 12, 15),
+                    Priority = 0
                 };
-                var controller = new WorkBlocksController(context);
+                var controller = new WorkSessionsController(context);
 
                 // Act
-                await controller.PostWorkBlock(wb3);
+                await controller.PostWorkSession(ws);
 
                 // Assert
-                Assert.AreEqual(context.Workblock.Count(), 3);
-
-                var query = (from wb in context.Workblock
-                             where wb.Time.Hours == 18
-                             select wb.WorkBlockId);
-                Assert.AreEqual(query.First(), 3);
-            }
-        }
-
-        [TestMethod]
-        public async Task TestPut()
-        {
-            using (var context = new TaskMasterApiContext(options))
-            {
-                // Arrange
-                var wb = new WorkBlock
-                {
-                    WorkBlockId = 1,
-                    Time = new System.TimeSpan(10,0,0)
-                };
-                var controller = new WorkBlocksController(context);
-
-                // Act
-                await controller.PutWorkBlock(1, wb);
-
-                // Assert
-                Assert.AreEqual(context.Workblock.Count(), 2);
-
-                var foundWb = context.Workblock.Find(1);
-                Assert.AreEqual(foundWb.Time.Hours, 10);
+                Assert.IsTrue(context.WorkSession.Any(w => w.WorkSessionId == 7));
             }
         }
 
