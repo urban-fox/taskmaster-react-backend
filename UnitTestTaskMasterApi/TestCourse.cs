@@ -68,6 +68,25 @@ namespace UnitTestTaskMasterApi
             }
         }
 
+        // GET Course/{id}
+        [TestMethod]
+        public async Task TestGetOne()
+        {
+            using (var context = new TaskMasterApiContext(options))
+            {
+                // Arrange
+                var controller = new CoursesController(context);
+
+                // Act
+                var result = await controller.GetCourse(1);
+                var course = (Course)(result as OkObjectResult).Value;
+
+                // Assert
+                Assert.AreEqual(course.Title, "Testcourse 1");
+            }
+        }
+
+
         [TestMethod]
         public async Task TestPost()
         {
